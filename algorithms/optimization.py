@@ -42,12 +42,15 @@ def hill_climbing(
     # TODO: Add your code here
     actual = initial_configuration
     score_actual = configuration_score(problem, actual)
+
     evaluar = 1
     rondas = 0
     history = [actual]
     buscar = True
+
     while rondas < max_iterations and buscar:
         vecinos = problem.neighbors(actual)
+
         if not vecinos:
             buscar = False
         else:
@@ -60,13 +63,16 @@ def hill_climbing(
                 if score > best_neighbor_score:
                     best_neighbor_score = score
                     best_neighbor = neighbor
+
             rondas += 1
+
             if best_neighbor_score > score_actual:
                 actual = best_neighbor
                 score_actual = best_neighbor_score
                 history.append(actual)
             else:
                 buscar = False
+
     return OptimizationResult(
         best_configuration=actual,
         best_score=score_actual,
@@ -119,10 +125,12 @@ def simulated_annealing(
 
     best_configuration = actual
     best_score = score_actual
+
     evaluar = 1
     rondas = 0
     history = [actual]
     buscar = True
+
     while rondas < max_iterations and buscar:
         temperatura = cooling_schedule(initial_temperature, cooling_rate, rondas)
         if temperatura < minimum_temperature:
